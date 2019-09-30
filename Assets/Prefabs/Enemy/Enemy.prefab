@@ -1564,7 +1564,7 @@ MonoBehaviour:
     m_Bits: 8192
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 16384
+    m_Bits: 16385
   visibleTargets: []
   m_targetLocation: {x: 0, y: 0, z: 0}
   m_lastVisualTime: 0
@@ -2038,11 +2038,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BulletImpactFleshSmallEffect
       objectReference: {fileID: 0}
-    - target: {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4000010991908142, guid: 83e55d3418297934fab882559d009285, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.645
@@ -2085,6 +2080,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010991908142, guid: 83e55d3418297934fab882559d009285, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285,
+        type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

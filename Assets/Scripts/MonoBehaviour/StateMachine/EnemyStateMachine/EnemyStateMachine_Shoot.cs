@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// In this state, the AI must shoot at the last known position of the player
+/// </summary>
 public class EnemyStateMachine_Shoot : EnemyStateMachine
 {
     [SerializeField] float m_blindShotDuration = 10;

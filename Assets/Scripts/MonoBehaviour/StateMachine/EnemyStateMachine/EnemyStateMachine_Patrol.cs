@@ -5,6 +5,9 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 using NaughtyAttributes;
 
+/// <summary>
+/// In this state the AI moves endlessly towards all the points of a PatrolPath
+/// </summary>
 public class EnemyStateMachine_Patrol : EnemyStateMachine
 {
     [Header("Patrol settings")]
@@ -46,6 +49,7 @@ public class EnemyStateMachine_Patrol : EnemyStateMachine
         // cycling to the start if necessary.
         m_currentPatrolPoint = (m_currentPatrolPoint + 1) % m_patrolPath.PatrolPoints.Count;
 
+        m_onPatrolPointReached.Invoke();
         SetDestination();
     }
 

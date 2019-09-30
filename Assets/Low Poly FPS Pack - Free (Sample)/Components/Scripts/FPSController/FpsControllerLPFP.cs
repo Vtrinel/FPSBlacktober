@@ -152,7 +152,19 @@ namespace FPSControllerLPFP
             Jump();
             PlayFootstepSounds();
 
-            playerGun.IsRunning = input.Run;
+            if(input.Run && input.Move != 0)
+            {
+                playerGun.IsRunning = true;
+            }
+            else if (input.Run && input.Strafe != 0)
+            {
+                playerGun.IsRunning = true;
+            }
+            else
+            {
+                playerGun.IsRunning = false;
+            }
+            
         }
 
         private void RotateCameraAndCharacter()

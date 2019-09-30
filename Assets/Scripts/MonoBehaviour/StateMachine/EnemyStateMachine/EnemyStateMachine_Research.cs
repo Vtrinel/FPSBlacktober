@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// In this state the AI moves to the latest sign of the player
+/// </summary>
 public class EnemyStateMachine_Research : EnemyStateMachine
 {
     [SerializeField] float visualTime = 10;
     [SerializeField] float noiseTime = 20;
 
+    [Header("Override End State")]
     [SerializeField] EnemyStateMachine m_stateWhenPlayerSpotted;
 
     public override void StateUpdate()

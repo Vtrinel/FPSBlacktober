@@ -14,6 +14,7 @@ public class AutomaticGunScriptLPFP : MonoBehaviour
     public Camera gunCamera;
 
     [Header("Gun Camera Options")]
+    public bool canAim = true;
     //How fast the camera field of view changes when aiming 
     [Tooltip("How fast the camera field of view changes when aiming.")]
     public float fovSpeed = 15.0f;
@@ -201,41 +202,7 @@ public class AutomaticGunScriptLPFP : MonoBehaviour
 
     private void Update()
     {
-
-        //Aiming
-        //Toggle camera FOV when right click is held down
-        if (Input.GetButton("Fire2") && !isReloading && !IsRunning && !isInspecting)
-        {
-
-            isAiming = true;
-            //Start aiming
-            anim.SetBool("Aim", true);
-
-            //When right click is released
-            gunCamera.fieldOfView = Mathf.Lerp(gunCamera.fieldOfView,
-                aimFov, fovSpeed * Time.deltaTime);
-
-            if (!soundHasPlayed)
-            {
-                mainAudioSource.clip = SoundClips.aimSound;
-                mainAudioSource.Play();
-
-                soundHasPlayed = true;
-            }
-        }
-        else
-        {
-            //When right click is released
-            gunCamera.fieldOfView = Mathf.Lerp(gunCamera.fieldOfView,
-                defaultFov, fovSpeed * Time.deltaTime);
-
-            isAiming = false;
-            //Stop aiming
-            anim.SetBool("Aim", false);
-
-            soundHasPlayed = false;
-        }
-        //Aiming end
+        Aim();
 
         //If randomize muzzleflash is true, genereate random int values
         if (randomMuzzleflash == true)
@@ -259,8 +226,8 @@ public class AutomaticGunScriptLPFP : MonoBehaviour
         {
             anim.Play("Knife Attack 2", 0, 0f);
         }
-        
-        
+
+
 
         //Throw grenade when pressing G key
         if (Input.GetKeyDown(KeyCode.G) && !isInspecting)
@@ -374,6 +341,46 @@ public class AutomaticGunScriptLPFP : MonoBehaviour
         {
             anim.SetBool("Run", false);
         }
+    }
+
+    private void Aim()
+    {
+        if (!canAim) return;
+
+        //Aiming
+        //Toggle camera FOV when right click is held down
+        if (Input.GetButton("Fire2") && !isReloading && !IsRunning && !isInspecting)
+        {
+
+            isAiming = true;
+            //Start aiming
+            anim.SetBool("Aim", true);
+
+            //When right click is released
+            gunCamera.fieldOfView = Mathf.Lerp(gunCamera.fieldOfView,
+                aimFov, fovSpeed * Time.deltaTime);
+
+            if (!soundHasPlayed)
+            {
+                mainAudioSource.clip = SoundClips.aimSound;
+                mainAudioSource.Play();
+
+                soundHasPlayed = true;
+            }
+        }
+        else
+        {
+            //When right click is released
+            gunCamera.fieldOfView = Mathf.Lerp(gunCamera.fieldOfView,
+                defaultFov, fovSpeed * Time.deltaTime);
+
+            isAiming = false;
+            //Stop aiming
+            anim.SetBool("Aim", false);
+
+            soundHasPlayed = false;
+        }
+        //Aiming end
     }
 
     private void ThrowGrenade()

@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// In this state the AI has to reach a good position to shoot
+/// </summary>
 public class EnemyStateMachine_ShootPositionning : EnemyStateMachine
 {
     [SerializeField] float m_shootDistance = 5;
     [SerializeField] float m_lostDistance = 2;
 
+    [Header("Override End State")]
     [SerializeField] EnemyStateMachine m_stateWhenCanShoot;
     [SerializeField] EnemyStateMachine m_stateWhenLostTarget;
 

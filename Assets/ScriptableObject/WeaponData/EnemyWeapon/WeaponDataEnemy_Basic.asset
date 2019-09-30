@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WeaponDataEnemy_Basic
   m_EditorClassIdentifier: 
   m_damage: 1
-  m_range: 10
+  m_range: 14
   m_accuracy: 0.4
   m_recoilAmplitude: 3
   m_fireRate: 5
