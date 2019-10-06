@@ -237,6 +237,11 @@ PrefabInstance:
       propertyPath: _OnEndStateMachine
       value: 
       objectReference: {fileID: 279343439829567191}
+    - target: {fileID: 2728381653828477054, guid: 9e7ccea755d6f5846b5fb24529d69230,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f7336a8edffbed44b879196cba56c68f, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e7ccea755d6f5846b5fb24529d69230, type: 3}
 --- !u!114 &279343439829567191 stripped
