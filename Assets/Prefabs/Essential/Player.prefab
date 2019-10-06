@@ -5620,6 +5620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunCamera: {fileID: 20176831017129482}
+  canAim: 0
   fovSpeed: 15
   defaultFov: 40
   aimFov: 15
@@ -5637,12 +5638,12 @@ MonoBehaviour:
   m_impactFx: {fileID: 1000010355441670, guid: 02a509a7fa70ed740ba4197e20c5d32d, type: 3}
   currentAmmo: 0
   ammo: 31
-  ammoStock: 248
+  ammoStock: 124
   bulletForce: 400
   showBulletInMagDelay: 0.6
   bulletInMagRenderer: {fileID: 137799156817685020}
   grenadeSpawnDelay: 0.35
-  m_grenadeStock: 3
+  m_grenadeStock: 0
   randomMuzzleflash: 1
   maxRandomValue: 2
   enableMuzzleflash: 1
@@ -6660,7 +6661,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
+  m_Radius: 0.14
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: -0.4, z: 0}

@@ -130,6 +130,6 @@ MonoBehaviour:
     type: 3}
   minTime: 0.05
   maxTime: 0.25
-  explosionRadius: 2
+  explosionRadius: 2.5
   explosionForce: 500
   m_damage: 100

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        Cursor.visible = false;
     }
 
     public void RegisterEntity(Entity p_entity)
