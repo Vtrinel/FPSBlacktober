@@ -311,6 +311,8 @@ public class AutomaticGunScriptLPFP : MonoBehaviour
         if (Input.GetKey(KeyCode.W) && !IsRunning ||
             Input.GetKey(KeyCode.A) && !IsRunning ||
             Input.GetKey(KeyCode.S) && !IsRunning ||
+            Input.GetKey(KeyCode.Z) && !IsRunning ||
+            Input.GetKey(KeyCode.Q) && !IsRunning ||
             Input.GetKey(KeyCode.D) && !IsRunning)
         {
             anim.SetBool("Walk", true);

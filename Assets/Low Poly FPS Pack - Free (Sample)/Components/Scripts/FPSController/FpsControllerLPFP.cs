@@ -51,7 +51,8 @@ namespace FPSControllerLPFP
         [SerializeField] Vector3 localArmsPosCrouch;
         [SerializeField] Vector3 localArmsPosStand;
         [SerializeField] CrouchColliderSettings crouchColliderSettings;
-        [SerializeField] CrouchColliderSettings ini_crouchColliderSettings;
+        CrouchColliderSettings standColliderSettings;
+        [SerializeField] float timeToCrouch;
 
         [Header("Look Settings")]
         [Tooltip("Rotation speed of the fps controller."), SerializeField]
@@ -84,10 +85,18 @@ namespace FPSControllerLPFP
         private readonly RaycastHit[] _groundCastResults = new RaycastHit[8];
         private readonly RaycastHit[] _wallCastResults = new RaycastHit[8];
 
+        float crouchTime;
+        float standTime;
+
+        private void Awake()
+        {
+            standTime = timeToCrouch;
+        }
+
         /// Initializes the FpsController on start.
         private void Start()
         {
-            ini_crouchColliderSettings = new CrouchColliderSettings(capsuleCollider.height, capsuleCollider.center);
+            standColliderSettings = new CrouchColliderSettings(capsuleCollider.height, capsuleCollider.center);
             //localArmsPosStand = crouchHolder.localPosition;
 
             _rigidbody = GetComponent<Rigidbody>();
@@ -167,11 +176,11 @@ namespace FPSControllerLPFP
             Crouch();
             PlayFootstepSounds();
 
-            if(input.Run && input.Move != 0)
+            if(input.Run && input.Move != 0 && !input.Crouch)
             {
                 playerGun.IsRunning = true;
             }
-            else if (input.Run && input.Strafe != 0)
+            else if (input.Run && input.Strafe != 0 && !input.Crouch)
             {
                 playerGun.IsRunning = true;
             }
@@ -291,17 +300,37 @@ namespace FPSControllerLPFP
         {
             if(input.Crouch)
             {
+                standTime = 0;
+                crouchTime += Time.deltaTime;
+                float crouchPercent = Mathf.Clamp01(crouchTime / timeToCrouch);
+
                 //crouch
+                /*
                 capsuleCollider.height = crouchColliderSettings.height;
                 capsuleCollider.center = crouchColliderSettings.center;
                 armPosition = localArmsPosCrouch;
+                */
+
+                capsuleCollider.height = Mathf.Lerp(standColliderSettings.height, crouchColliderSettings.height, crouchPercent);
+                capsuleCollider.center = Vector3.Lerp(standColliderSettings.center, crouchColliderSettings.center, crouchPercent);
+                armPosition = Vector3.Lerp(localArmsPosStand, localArmsPosCrouch, crouchPercent);
+
                 Debug.Log("Crouch");
             }
             else //stand
             {
-                capsuleCollider.height = ini_crouchColliderSettings.height;
-                capsuleCollider.center = ini_crouchColliderSettings.center;
+                crouchTime = 0;
+                standTime += Time.deltaTime;
+                float standPercent = Mathf.Clamp01(standTime / timeToCrouch);
+
+                capsuleCollider.height = standColliderSettings.height;
+                capsuleCollider.center = standColliderSettings.center;
                 armPosition = localArmsPosStand;
+
+                capsuleCollider.height = Mathf.Lerp(crouchColliderSettings.height, standColliderSettings.height, standPercent);
+                capsuleCollider.center = Vector3.Lerp(crouchColliderSettings.center, standColliderSettings.center, standPercent);
+                armPosition = Vector3.Lerp(localArmsPosCrouch, localArmsPosStand, standPercent);
+
                 Debug.Log("Stand");
             }
         }

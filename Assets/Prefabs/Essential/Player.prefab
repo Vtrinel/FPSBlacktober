@@ -6781,7 +6781,7 @@ MonoBehaviour:
   runningSound: {fileID: 8300000, guid: 0c58744c3b6fdd844b8348066c3f703e, type: 3}
   walkingSpeed: 5
   runningSpeed: 9
-  crouchingSpeed: 2
+  crouchingSpeed: 1.5
   movementSmoothness: 0.125
   jumpForce: 35
   localArmsPosCrouch: {x: 0, y: -0.7, z: 0}
@@ -6789,9 +6789,7 @@ MonoBehaviour:
   crouchColliderSettings:
     height: 1
     center: {x: 0, y: -0.8, z: 0}
-  ini_crouchColliderSettings:
-    height: 0
-    center: {x: 0, y: 0, z: 0}
+  timeToCrouch: 0.25
   mouseSensitivity: 7
   rotationSmoothness: 0.05
   minVerticalAngle: -90
