@@ -14,6 +14,7 @@ namespace FPSControllerLPFP
 
         [Header("References")]
         [SerializeField] AutomaticGunScriptLPFP playerGun;
+        [SerializeField] CapsuleCollider capsuleCollider;
 
 		[Header("Arms")]
         [Tooltip("The transform component that holds the gun camera."), SerializeField]
@@ -36,13 +37,23 @@ namespace FPSControllerLPFP
         [Tooltip("How fast the player moves while running."), SerializeField]
         private float runningSpeed = 9f;
 
+        [Tooltip("How fast the player moves while crouching."), SerializeField]
+        private float crouchingSpeed = 3f;
+
         [Tooltip("Approximately the amount of time it will take for the player to reach maximum running or walking speed."), SerializeField]
         private float movementSmoothness = 0.125f;
 
         [Tooltip("Amount of force applied to the player when jumping."), SerializeField]
         private float jumpForce = 35f;
 
-		[Header("Look Settings")]
+
+        [Header("Crouch settings")]
+        [SerializeField] Vector3 localArmsPosCrouch;
+        [SerializeField] Vector3 localArmsPosStand;
+        [SerializeField] CrouchColliderSettings crouchColliderSettings;
+        [SerializeField] CrouchColliderSettings ini_crouchColliderSettings;
+
+        [Header("Look Settings")]
         [Tooltip("Rotation speed of the fps controller."), SerializeField]
         private float mouseSensitivity = 7f;
 
@@ -76,6 +87,9 @@ namespace FPSControllerLPFP
         /// Initializes the FpsController on start.
         private void Start()
         {
+            ini_crouchColliderSettings = new CrouchColliderSettings(capsuleCollider.height, capsuleCollider.center);
+            //localArmsPosStand = crouchHolder.localPosition;
+
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
             _collider = GetComponent<CapsuleCollider>();
@@ -150,6 +164,7 @@ namespace FPSControllerLPFP
         {
 			arms.position = transform.position + transform.TransformVector(armPosition);
             Jump();
+            Crouch();
             PlayFootstepSounds();
 
             if(input.Run && input.Move != 0)
@@ -225,7 +240,8 @@ namespace FPSControllerLPFP
         {
             var direction = new Vector3(input.Move, 0f, input.Strafe).normalized;
             var worldDirection = transform.TransformDirection(direction);
-            var velocity = worldDirection * (input.Run ? runningSpeed : walkingSpeed);
+            float l_speed = input.Crouch ? crouchingSpeed : input.Run ? runningSpeed : walkingSpeed;
+            var velocity = worldDirection * (l_speed);
             //Checks for collisions so that the character does not stuck when jumping against walls.
             var intersectsWall = CheckCollisionsWithWalls(velocity);
             if (intersectsWall)
@@ -265,9 +281,29 @@ namespace FPSControllerLPFP
 
         private void Jump()
         {
+            if (input.Crouch) return;
             if (!_isGrounded || !input.Jump) return;
             _isGrounded = false;
             _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+
+        private void Crouch()
+        {
+            if(input.Crouch)
+            {
+                //crouch
+                capsuleCollider.height = crouchColliderSettings.height;
+                capsuleCollider.center = crouchColliderSettings.center;
+                armPosition = localArmsPosCrouch;
+                Debug.Log("Crouch");
+            }
+            else //stand
+            {
+                capsuleCollider.height = ini_crouchColliderSettings.height;
+                capsuleCollider.center = ini_crouchColliderSettings.center;
+                armPosition = localArmsPosStand;
+                Debug.Log("Stand");
+            }
         }
 
         private void PlayFootstepSounds()
@@ -329,7 +365,20 @@ namespace FPSControllerLPFP
                 set { _current = value; }
             }
         }
-			
+
+        [System.Serializable]
+        public class CrouchColliderSettings
+        {
+            public float height;
+            public Vector3 center;
+
+            public CrouchColliderSettings(float p_height, Vector3 p_center)
+            {
+                height = p_height;
+                center = p_center;
+            }
+        }
+
         /// Input mappings
         [Serializable]
         private class FpsInput
@@ -357,6 +406,10 @@ namespace FPSControllerLPFP
             [Tooltip("The name of the virtual button mapped to jump."),
              SerializeField]
             private string jump = "Jump";
+
+            [Tooltip("The name of the virtual button mapped to crouch."),
+ SerializeField]
+            private string crouch = "Crouch";
 
             /// Returns the value of the virtual axis mapped to rotate the camera around the y axis.
             public float RotateX
@@ -392,6 +445,11 @@ namespace FPSControllerLPFP
             public bool Jump
             {
                 get { return Input.GetButtonDown(jump); }
+            }
+       
+            public bool Crouch
+            {
+                get { return Input.GetButton(crouch); }
             }
         }
     }

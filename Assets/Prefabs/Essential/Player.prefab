@@ -6774,14 +6774,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerGun: {fileID: 114216158892903854}
+  capsuleCollider: {fileID: 136200420258760052}
   arms: {fileID: 4395424817696830}
   armPosition: {x: 0, y: 0, z: 0}
   walkingSound: {fileID: 8300000, guid: 6597a368cd74a924eaedb0171d5b28d3, type: 3}
   runningSound: {fileID: 8300000, guid: 0c58744c3b6fdd844b8348066c3f703e, type: 3}
   walkingSpeed: 5
   runningSpeed: 9
+  crouchingSpeed: 2
   movementSmoothness: 0.125
   jumpForce: 35
+  localArmsPosCrouch: {x: 0, y: -0.7, z: 0}
+  localArmsPosStand: {x: 0, y: 0, z: 0}
+  crouchColliderSettings:
+    height: 1
+    center: {x: 0, y: -0.8, z: 0}
+  ini_crouchColliderSettings:
+    height: 0
+    center: {x: 0, y: 0, z: 0}
   mouseSensitivity: 7
   rotationSmoothness: 0.05
   minVerticalAngle: -90
@@ -6793,6 +6803,7 @@ MonoBehaviour:
     strafe: Vertical
     run: Fire3
     jump: Jump
+    crouch: Crouch
 --- !u!114 &2544456951098372866
 MonoBehaviour:
   m_ObjectHideFlags: 0
