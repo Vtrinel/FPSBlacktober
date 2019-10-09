@@ -6790,7 +6790,7 @@ MonoBehaviour:
     height: 1
     center: {x: 0, y: -0.8, z: 0}
   timeToCrouch: 0.25
-  mouseSensitivity: 7
+  mouseSensitivity: 5.5
   rotationSmoothness: 0.05
   minVerticalAngle: -90
   maxVerticalAngle: 90
