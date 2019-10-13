@@ -134,8 +134,6 @@ MonoBehaviour:
   m_onPatrolPointReached:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!54 &5785825448467942922
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -648,8 +646,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 0.25
-  MaxDistance: 20
+  MinDistance: 3
+  MaxDistance: 200
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -684,7 +682,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.7
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2038,6 +2036,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BulletImpactFleshSmallEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4000010991908142, guid: 83e55d3418297934fab882559d009285, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.645
@@ -2080,11 +2083,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010991908142, guid: 83e55d3418297934fab882559d009285, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285,
-        type: 3}
-      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

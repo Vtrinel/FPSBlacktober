@@ -99,5 +99,10 @@ public class ExplosiveBarrelScript : MonoBehaviour,IDamagable
         StartCoroutine(Explode());
         routineStarted = true;
     }
+
+    public void ForceExplosion()
+    {
+        TakeDamage(new DamageInfo(0, Vector3.zero, Vector3.zero));
+    }
 }
 // ----- Low Poly FPS Pack Free Version -----
